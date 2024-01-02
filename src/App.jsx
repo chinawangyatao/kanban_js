@@ -8,7 +8,7 @@ import TaskBox from './components/TaskBox';
 function App() {
   const initEvent = useMemo(() => [
     {
-      title: 'Add a new Event',
+      title: '添加新事件',
       ['To do']: [],
       ['In progress']: [],
       ['Completed']: [],
@@ -23,7 +23,7 @@ function App() {
 
   const [currentEvent, setCurrentEvent] = useState(events[0]);
 
-  const updateEvents = useCallback(async () => {
+  const updateEvents = async () => {
     try {
       if (!events.length) {
         await localStorage.setItem('events', JSON.stringify(initEvent));
@@ -32,9 +32,9 @@ function App() {
         await localStorage.setItem('events', JSON.stringify(events));
       }
     } catch (e) {
-      console.error('Failed to modify events!');
+      console.error('修改事件失败!');
     }
-  }, [events]);
+  }
 
   // Set localStorage
   useEffect(() => {
@@ -54,6 +54,7 @@ function App() {
         setEvents={setEvents}
         currentEvent={currentEvent}
         setCurrentEvent={setCurrentEvent}
+        updateEvents={updateEvents}
       />
     </div>
   );

@@ -2,11 +2,15 @@ import AddTaskButton from './AddTaskButton';
 import Task from './Task';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import uuid from 'react-uuid';
+import {useState} from "react";
+import {Form, Input, Modal} from "antd";
 
 const Column = ({ tag, currentEvent, events, setEvents }) => {
-  const handleAdd = () => {
-    const name = prompt('Enter task name:');
-    const details = prompt('Enter details:');
+  const [visible,setVisible] = useState(false)
+  const [form] = Form.useForm()
+  const handleSubmit = () => {
+    const name = form.getFieldValue().name
+    const details = form.getFieldValue().details
     if (!(name && details)) return;
     setEvents((prev) => {
       const arrCopy = [...prev];
@@ -24,6 +28,7 @@ const Column = ({ tag, currentEvent, events, setEvents }) => {
       });
       return arrCopy;
     });
+    setVisible(false)
   };
 
   const handleRemove = (id, e) => {
@@ -69,7 +74,10 @@ const Column = ({ tag, currentEvent, events, setEvents }) => {
   return (
     <div className='column'>
       {tag}
-      <AddTaskButton handleClick={handleAdd} />
+      <AddTaskButton handleClick={()=> {
+        setVisible(true)
+        form.setFieldValue(null)
+      }} />
       <Droppable droppableId={tag}>
         {(provided, snapshot) => {
           return (
@@ -104,6 +112,16 @@ const Column = ({ tag, currentEvent, events, setEvents }) => {
           );
         }}
       </Droppable>
+      <Modal open={visible} onCancel={()=>setVisible(false)} onOk={handleSubmit} title={"新增目录"}>
+        <Form form={form}>
+          <Form.Item name={'name'} label={'名称'}>
+            <Input />
+          </Form.Item>
+          <Form.Item name={'details'} label={'详情'}>
+            <Input />
+          </Form.Item>
+        </Form>
+      </Modal>
     </div>
   );
 };

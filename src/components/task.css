@@ -14,7 +14,7 @@
   font-size: 1.1em;
   font-style: italic;
   margin-left: 35px;
-  padding: 10px 10px;
+  padding: 5px 10px;
   background: none;
   border: 2px solid red;
   border-radius: 10px;
@@ -26,6 +26,23 @@
 .remove-button:hover {
   color: #fff;
   background-color: red;
+  transition: 0.3s;
+}
+.edit-button{
+  font-size: 1.1em;
+  font-style: italic;
+  margin-left: 35px;
+  padding: 5px 10px;
+  background: none;
+  border: 2px solid dodgerblue;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+  outline: none;
+}
+.edit-button:hover {
+  color: #fff;
+  background-color: dodgerblue;
   transition: 0.3s;
 }
 
